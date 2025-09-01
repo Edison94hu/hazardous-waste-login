@@ -12,6 +12,9 @@ import { ProfileBasic } from "./components/ProfileBasic";
 import { ProfileHwInput } from "./components/ProfileHwInput";
 import { ProfileAccounts } from "./components/ProfileAccounts";
 import { ProfileSystem } from "./components/ProfileSystem";
+import { HistoryLayout } from "./components/HistoryLayout";
+import { HistoryRecordsPage } from "./components/HistoryRecordsPage";
+import { DataAnalyticsPanel } from "./components/DataAnalyticsPanel";
 
 type EntryMode = "normal" | "backfill";
 
@@ -373,11 +376,8 @@ function AppContent() {
         );
 
       case "statistics":
-        return (
-          <div className="flex-1 overflow-hidden">
-            <HistoryAnalyticsTabPage />
-          </div>
-        );
+        // Statistics routes are handled at the top level
+        return null;
 
       case "devices":
         return (
@@ -428,6 +428,10 @@ export default function App() {
           <Route path="hw-input" element={<ProfileHwInput />} />
           <Route path="accounts" element={<ProfileAccounts />} />
           <Route path="system" element={<ProfileSystem />} />
+        </Route>
+        <Route path="/statistics/*" element={<HistoryLayout />}>
+          <Route index element={<HistoryRecordsPage />} />
+          <Route path="analytics" element={<DataAnalyticsPanel />} />
         </Route>
         <Route path="/*" element={<AppContent />} />
       </Routes>
